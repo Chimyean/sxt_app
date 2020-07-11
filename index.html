@@ -1,0 +1,339 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>底部导航</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <style>
+        /*header{ background-color: #fe7142; }
+        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px;  }
+        header ul li.active{ display: block; }*/
+
+        #footer {
+            background-color: #ffffff;
+            border-top: 1px solid #f2f2f2;
+        }
+
+        #footer ul li {
+            padding-top: 36px;
+            padding-bottom: 4px;
+            background: url() no-repeat center 2px;
+            background-size: auto 30px;
+            text-align: center;
+            color: #5a5a5a;
+        }
+
+        #footer ul li.active {
+            color: #fe7142;
+        }
+
+        #footer ul li:nth-child(1) {
+            background-image: url(./image/u453.png);
+        }
+
+        #footer ul li:nth-child(2) {
+            background-image: url(./image/u26.png);
+        }
+
+        #footer ul li:nth-child(3) {
+            background-image: url(./image/u23.png);
+        }
+
+        #footer ul li:nth-child(4) {
+            background-image: url(./image/u25.png);
+        }
+
+        #footer ul li:nth-child(5) {
+            background-image: url(./image/u24.png);
+        }
+
+        #footer ul li:nth-child(1).active {
+            background-image: url(./image/u21.png);
+        }
+
+        #footer ul li:nth-child(2).active {
+            background-image: url(./image/u457.png);
+        }
+
+        #footer ul li:nth-child(3).active {
+            background-image: url(./image/u23.png);
+        }
+
+        #footer ul li:nth-child(4).active {
+            background-image: url(./image/u612.png);
+        }
+
+        #footer ul li:nth-child(5).active {
+            background-image: url(./image/u694.png);
+        }
+
+        .flex-con {
+            overflow: auto
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <!-- <header>
+        <ul>
+            <li class="border-b active" >首页</li>
+            <li class="border-b" >任务间</li>
+            <li class="border-b" >任务发布</li>
+            <li class="border-b" >讨论社区</li>
+            <li class="border-b" >我的</li>
+        </ul>
+    </header> -->
+        <div id="main" class="flex-con">
+
+        </div>
+        <footer id="footer" class="border-t">
+            <ul class="flex-wrap">
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active">首页</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">任务间</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">任务发布</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">讨论社区</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">我的</li>
+            </ul>
+        </footer>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      let username = localStorage.getItem('com_username')
+        //  console.log(username)
+        if (username === null) {
+          api.openWin({
+              name: 'login',
+              url: './frm_login.html',
+              // pageParam: {
+              //     name: 'test'
+              // }
+          });
+
+        }
+        // refresh();
+        exit_app();
+        $api.fixStatusBar($api.dom('header'));
+
+        api.setStatusBarStyle({
+            style: 'dark',
+            color: '#fe7142'
+        });
+        funIniGroup();
+        // var list = $api.domAll('#footer li');
+        // var a = JSON.stringify(list);
+        // console.log(a);
+        // var username= api.pageParam.username;
+        // console.log(username);
+        // sessionStorage.setItem("username", username)
+    }
+
+    // function refresh() {
+    //     api.addEventListener({
+    //         name: 'randomSwitchBtn'
+    //     }, function(ret, err) {
+    //         if (ret) {
+    //             //  alert( JSON.stringify( ret ) );
+    //             console.log('refresh')
+    //             window.location.reload();
+    //         } else {
+    //              alert( JSON.stringify( err ) );
+    //             // console.log('refresh')
+    //
+    //         }
+    //     });
+    //
+    // }
+
+
+    function exit_app() {
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            if (ret) {
+                // alert(JSON.stringify(ret));
+                localStorage.removeItem('com_username')
+                localStorage.removeItem('password')
+                api.closeWidget({
+                    id: 'A6036924957494',
+                    retData: {
+                        name: 'closeWidget'
+                    },
+                    animation: {
+                        type: 'flip',
+                        subType: 'from_bottom',
+                        duration: 500
+                    }
+                });
+
+            } else {
+                // alert(JSON.stringify(err));
+                alert('出错啦！')
+            }
+        });
+
+        // api.addEventListener({
+        //     name: 'keyback'
+        // }, function(ret, err) {
+        //     api.addEventListener({
+        //         name: 'keyback'
+        //     }, function(ret, err) {
+        //         api.closeWidget({
+        //             id: 'A6036924957494', //你的APPid
+        //             retData: {
+        //                 name: 'closeWidget'
+        //             },
+        //             animation: {
+        //                 type: 'flip',
+        //                 subType: 'from_bottom',
+        //                 duration: 500
+        //             },
+        //             silent: true
+        //         });
+        //     });
+        //     setTimeout(function() {
+        //         exit_app();
+        //     }, 3000);
+        // });
+    }
+
+    function funIniGroup() {
+        var password = api.pageParam.password;
+        var username = api.pageParam.username;
+        var eHeaderLis = $api.domAll('footer li'),
+            frames = [];
+        for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+            frames.push({
+                name: 'frame' + i,
+                url: './html/frame' + i + '.html',
+                bgColor: '#fe7142',
+                bounces: false,
+                pageParam: {
+                    username: username,
+                    password: password
+                }
+            })
+        }
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                // y: $api.dom('header').offsetHeight,
+                w: api.winWidth,
+                h: $api.dom('#main').offsetHeight
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+
+        });
+    }
+
+    // 随意切换按钮
+    function randomSwitchBtn(tag) {
+        if (tag == $api.dom('#footer li.active')) return;
+        var eFootLis = $api.domAll('#footer li'),
+            eHeaderLis = $api.domAll('header li'),
+            index = 0;
+        var ss = JSON.stringify(eFootLis[0].clicker)
+        // console.log(ss);
+        for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (tag == eFootLis[i]) {
+                index = i;
+            } else {
+                $api.removeCls(eFootLis[i], 'active');
+                $api.removeCls(eHeaderLis[i], 'active');
+            }
+        }
+        // console.log(index);
+        if (index !== 0) {
+            api.closeFrameGroup({
+                name: 'menuFrameGroup'
+            });
+            api.closeFrameGroup({
+                name: 'tabsFrameGroup'
+            });
+        }
+        if (index === 0) {
+            var winH = api.winHeight
+                //获取所有tabs
+                // var tabs = [];
+                // tabs.push({
+                //     name: 'tab0',
+                //     url: 'html/tab0.html'
+                // }, {
+                //     name: 'tab1',
+                //     url: 'html/tab1.html'
+                // }, {
+                //     name: 'tab2',
+                //     url: 'html/tab2.html'
+                // })
+                // var contabs = JSON.stringify(tabs);
+                // console.log(contabs);
+            opentabsframe()
+            api.sendEvent({
+                name: 'opentabsframe',
+                extra: {
+                    state: 'yes'
+                }
+            });
+
+        }
+        $api.addCls(eFootLis[index], 'active');
+        $api.addCls(eHeaderLis[index], 'active');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: index
+        });
+        api.sendEvent({
+            name: 'randomSwitchBtn',
+            extra: {
+                state: 'ok',
+            }
+        });
+    }
+    //第二次返回frame0时
+    function opentabsframe() {
+        var winH = api.winHeight
+        var tabs = [];
+        tabs.push({
+            name: 'tab0',
+            url: 'html/tab0.html'
+        }, {
+            name: 'tab1',
+            url: 'html/tab1.html'
+        }, {
+            name: 'tab2',
+            url: 'html/tab2.html'
+        })
+        api.openFrameGroup({
+            name: 'tabsFrameGroup',
+            scrollEnabled: true,
+            // fixedOn: 'frame0',
+            rect: {
+                x: 0,
+                y: 128,
+                w: 'auto',
+                h: winH - 190
+            },
+            index: 0,
+            frames: tabs
+        }, function(ret, err) {
+            // if( ret ){
+            //      alert( JSON.stringify( ret ) );
+            // }else{
+            //      alert( JSON.stringify( err ) );
+            // }
+            // setSelected(ret.index);
+        });
+    }
+</script>

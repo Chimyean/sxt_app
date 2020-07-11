@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>任务详情</title>
+    <style>
+        body,
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100%;
+            position: relative;
+        }
+        /*body {
+            height: 100%;
+        }*/
+        /*
+        #app {
+            position: relative;
+            margin: 0 auto;
+            height: auto !important;
+            height: 100%;
+            min-height: 100%;
+        }*/
+
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            background-color: #ff7247;
+            color: #ffffff;
+            position: fixed;
+            z-index: 999;
+        }
+
+        #app {
+            height: 100%;
+            position: relative;
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .nav {
+            background: #fff;
+            width: 100%;
+            /*background: red;*/
+            display: flex;
+            position: fixed;
+            /*box-shadow: 10px 10px 2px #f7f7f7;*/
+            border-bottom: 2px solid #f2f2f2;
+        }
+
+        .nav_left {
+            /*flex-grow: 2;*/
+            flex: 2;
+            /*background: pink;*/
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav_right {
+            /*flex-grow: 5;*/
+            flex: 5;
+            /*background: blue;*/
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav_right>div:nth-child(1) {
+            /*background: aqua;*/
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: '黑体';
+            /*justify-content: space-around;*/
+        }
+
+        .nav_right>div:nth-child(2) {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-family: '黑体';
+            color: #999;
+        }
+
+        .nav_right>div:nth-child(3) {
+            /*background: green;*/
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            font-size: 14px;
+            font-family: '黑体';
+            color: #999;
+        }
+
+        .content {
+            width: 100%;
+        }
+
+        .content>div:nth-child(1) {
+            display: flex;
+            width: 100%;
+            height: 50px;
+            justify-content: center;
+            align-items: flex-end;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .content>div:nth-child(2) {
+            display: flex;
+            width: 100%;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .content>div:nth-child(3) {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .content>div:nth-child(3)>p {
+            margin: 0 auto;
+            padding: 0px 20px 0px 20px;
+            line-height: 32px;
+        }
+
+        .comment {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            background: #cdcbcb;
+            /*position: fixed;*/
+        }
+
+        .com_left {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .com_left>input {
+            width: 90%;
+            height: 30px;
+            border-radius: 3px;
+            background: #f2f2f2;
+            padding-left: 2px;
+            /*-webkit-appearance: none;*/
+            border: 0px;
+        }
+
+        .com_right {
+            width: 20%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .com_right>input {
+            width: 80%;
+            border-radius: 3px;
+            text-align: center;
+            height: 30px;
+            /*-webkit-appearance: none;*/
+            border: 0;
+        }
+
+        .active {
+            width: 80%;
+            border-radius: 3px;
+            text-align: center;
+            height: 30px;
+            /*-webkit-appearance: none;*/
+            border: 0;
+            background-color: #08c163;
+            color: #fff;
+        }
+
+        .showComment {
+            width: 95%;
+            margin: 0px auto;
+            /*margin-bottom: 0px;*/
+            background-color: #dadada;
+            min-height: 30px;
+            /*display: flex;
+          justify-content: center;
+          align-items: center;*/
+            border-bottom: 1px solid #f2f2f2;
+            line-height: 20px;
+        }
+
+        .showComment>p {
+            width：90%;
+            padding: 2%;
+        }
+
+        footer {
+            /*margin-top: 30px;*/
+            margin-bottom: 0;
+            /*position: fixed;*/
+            z-index: 998;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .btn {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn>input {
+            background: #ff7247;
+            width: 90%;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            color: #fff;
+        }
+
+        .turn_to_grey {
+            background: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <p>任务详情</p>
+    </div>
+    <div style="width:100%;height:88px"></div>
+    <div id="app" v-cloak>
+        <div class="nav">
+            <div class="nav_left">
+                <img id="avatar" src="../image/none.jpg" style="width: 80px; height: 80px; border-radius: 50%;" />
+            </div>
+            <div class="nav_right">
+                <div>
+                    <p>{{username}}</p>
+                </div>
+                <div>
+                    <p>直播打赏金额：{{price}}</p>
+                </div>
+                <div>
+                    <p>期望直播时间：{{date}} {{time}}</p>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%; height: 130px;"></div>
+        <div class="content" id="contentCls">
+            <div>
+                <p>{{headline}}</p>
+            </div>
+            <div>
+                <p>发布时间：{{createAt}}</p>
+            </div>
+            <div>
+                <p>{{content}}</p>
+            </div>
+        </div>
+        <div class="btn">
+            <input :class="grey" v-model="btn_text" type="button" @click="getTask" :disabled="ifget" />
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+    apiready = function() {
+        // const task_id = api.pageParam.task_id
+        // console.log(task_id)
+        var winHeight = api.winHeight - 318;
+        // console.log(winHeight)
+        //  var contentCls = $api.dom(div, '#content');
+        //  $api.addCls(contentCls, 'h');
+        document.getElementById('contentCls').style = 'min-height:' + winHeight.toString() + 'px';
+
+        // const discuss_id = api.pageParam.discuss_id
+        //   console.log(discuss_id)
+        const app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    username: '',
+                    headline: '',
+                    content: '',
+                    time: '',
+                    date: '',
+                    price: '',
+                    createAt: '',
+                    ifget: false,
+                    btn_text: '领取本任务帖',
+                    grey: ''
+                }
+            },
+            watch: {
+
+            },
+            methods: {
+                getTask() {
+                    const re_username = localStorage.getItem('com_username')
+                    const task_id = api.pageParam.task_id
+                    const usr = Bmob.Query('task');
+                    usr.get(task_id).then(res => {
+                        // console.log(res)
+                        if(re_username === res.publisher) {
+                          alert('不能领取自己发的任务帖哦！')
+                        } else {
+                          const query = Bmob.Query('task');
+                          query.get(task_id).then(res => {
+                              // console.log(res)
+                              res.set('recipients', re_username)
+                              res.save()
+                              alert('领取成功！')
+                              location.reload()
+                          }).catch(err => {
+                              // console.log(err)
+                          })
+                        }
+                    }).catch(err => {
+                        // console.log(err)
+                    })
+
+                },
+                getDetail() {
+                    const task_id = api.pageParam.task_id
+                    const query = Bmob.Query('task');
+                    query.get(task_id).then(res => {
+                        // console.log(res.recipients)
+                        if (res.recipients !== '') {
+                            this.btn_text = '该帖子已被领取 ' + '' + '领取人：' + res.recipients
+                            this.grey = 'turn_to_grey'
+                            this.ifget = true
+                        }
+                        this.username = res.publisher
+                        this.headline = res.que_headline
+                        this.content = res.que_content
+                        this.date = res.que_date
+                        this.time = res.que_time
+                        this.price = res.que_price
+                        this.createAt = res.createdAt
+
+                        // 获取头像
+                        var password = res.pub_password;
+                        var username = res.publisher;
+                        var xmlhttp;
+                        if (window.XMLHttpRequest) {
+                            xmlhttp = new XMLHttpRequest();
+                        } else {
+                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        xmlhttp = new XMLHttpRequest();
+                        // console.log(xmlhttp.status);
+                        // console.log(username)
+                        // console.log(password)
+                        xmlhttp.onreadystatechange = function() {
+                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                // console.log(xmlhttp.status);
+                                // console.log(xmlhttp.getResponseHeader("Content-Length"));
+                                var blob = xmlhttp.response;
+
+                                var reader = new FileReader();
+
+                                reader.readAsDataURL(blob);
+                                reader.onload = function() {
+                                    var b64 = this.result;
+                                    // console.log(b64);
+                                    document.getElementById('avatar').src = b64;
+                                    localStorage.setItem("avatar64", b64)
+                                        // const ava = sessionStorage.getItem("avatar64")
+                                        // console.log(ava)
+                                }
+                            }
+                        }
+                        xmlhttp.open("GET", 'http://121.199.23.141:8081/User/selectphoto?username=' + username + "&password=" + password, true);
+                        xmlhttp.responseType = "blob";
+                        xmlhttp.send();
+                    }).catch(err => {
+                        // console.log(err)
+                    })
+                }
+
+            },
+            mounted() {
+                this.getDetail()
+
+            }
+        })
+    }
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+</script>

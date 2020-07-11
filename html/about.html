@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>关于我们</title>
+    <style>
+
+        body {
+          margin: 0px;
+          padding: 0px;
+        }
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            background-color: #ff7247;
+            color: #ffffff;
+            position: fixed;
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .headline {
+            height: 80px;
+            width: 100%;
+            color: #000;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content>p {
+          margin: 0px;
+          width: 88%;
+          line-height: 32px;
+          color: #999;
+          margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <p>关于我们</p>
+    </div>
+    <div style="width:100%;height:88px"></div>
+    <div class="container">
+        <div class="headline">
+            <p>关于我们</p>
+        </div>
+        <div class="content" id="content">
+          <p>
+            赏学堂APP是一款通过线上直播辅导的模式，为用户提供学习交流平台的移动端软件。用户可将遇到的学习问题通过发布悬赏的方式，将问题发送至该平台，由其他用户领取问题，通过线上帮助其解答，同时赚取悬赏。此外，该APP还提供一对少、一对多的直播教学，同时还设置了讨论社区，让用户仿佛置身于一个学习圈中讨论学习，将学习心得体会与大家分享，达到互动学习的目的。用户不但可以通过该平台直播学习视频来赚取酬劳，还能在遇到学习困难时向平台中的其他用户寻求帮助，解决学习方面的问题。在我们的APP当中，用户可充当提问者，也可以充当解答者，享受多角色切换的学习体验.本应用仍处于开发阶段，部分视频来源于腾讯视频。
+          </p>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+  apiready = function() {
+    var winHeight = api.winHeight - 188;
+    // console.log(winHeight)
+        //  var contentCls = $api.dom(div, '#content');
+        //  $api.addCls(contentCls, 'h');
+    document.getElementById('content').style = 'min-height:' + winHeight.toString() + 'px';
+  }
+</script>

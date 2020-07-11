@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/frame0.css" />
+    <style>
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+        .right {
+          width: 30%;
+          height: 88px;
+          float:left;
+          /*background: blue;*/
+        }
+        .center {
+          width:40%;
+          height: 88px;
+          margin: 0 auto;
+          /*border: 1px solid #000;*/
+          /*float: left;*/
+          text-align: center;
+          line-height: 110px;
+          font-size: 18px;
+          color: #fff;
+          /*background: red;*/
+        }
+        .left {
+          width: 30%;
+          height: 88px;
+          border: #fff;
+          float: right;
+          /*background: yellow;*/
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="empty">云API</div> -->
+    <div id="app">
+        <div id="header" class="header">
+            <!-- <div class="search">
+                <image class="search_btn" src="../image/u10.png"></image>
+            </div> -->
+            <div class="right"></div>
+            <div class="center">
+              首页
+            </div>
+            <div class="left">
+              <image class="video_btn" src="../image/u22.png" onclick="toVideo()"></image>
+              <image class="video_btn" style="width:30px;height:30px;" src="../image/u20.png" onclick="toVideoTask()"></image>
+            </div>
+            <!-- <div style="margin:0 auto;line-height:138px;color:#fff;font-size:18px;margin-top: 30px;">首页</div> -->
+            <!-- <image class="video_btn" src="../image/u22.png" onclick="toVideo()" style="position:absolute;margin-left:145px;margin-top:10px;"></image> -->
+        </div>
+        <!-- tabBar -->
+        <!-- <nav class="tabBar">
+        <div class="item" id="tab1">
+            <image class="icon" src="../image/u1.png"></image>
+            <p class="txt active">优秀直播</p>
+        </div>
+        <div class="item" id="tab2">
+            <image class="icon" src="../image/u18.png"></image>
+            <p class="txt">即将开播</p>
+        </div>
+        <div class="item" id="tab3">
+            <image class="icon" src="../image/u19.png"></image>
+            <p class="txt">一起学习吧</p>
+        </div>
+    </nav> -->
+        <!-- tabBar -->
+        <nav>
+            <div class="menu active">优秀直播</div>
+            <div class="menu">即将开播</div>
+            <div class="menu">一起学习吧</div>
+        </nav>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- <script type="text/javascript" src="../js/Bmob-1.6.1.min.js"></script> -->
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+          api.addEventListener({
+              name: 'close_win'
+          }, function(ret, err){
+            if (ret.value.state == 'closed') {
+                window.location.reload()
+            }
+          });
+
+      api.addEventListener({
+          name: 'opentabsframe'
+      }, function(ret, err) {
+          if (ret.value.state == 'yes') {
+              changetabs();
+          }
+      });
+      //第二次跳转后tabs根据index切换
+      function changetabs() {
+        var winH = api.winHeight
+        var result = JSON.stringify(winH);
+        // console.log(result);
+        api.openFrameGroup({
+            name: 'menuFrameGroup',
+            scrollEnabled: true,
+            fixedOn: 'frame0',
+            rect: {
+                x: 0,
+                y: 128,
+                w: 'auto',
+                h: winH - 190
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+          if( ret ){
+              //  alert( JSON.stringify( ret ) );
+              for(let i=0;i<menus.length;i++){
+                if(ret.index === i) {
+                  $api.addCls(menus[i], 'active');
+                  // console.log(i)
+                } else {
+                  $api.removeCls(menus[i], 'active');
+
+                }
+              }
+          }
+        });
+      };
+        var nav = $api.domAll('nav');
+        // $api.fixStatusBar(header);
+        // var headerH = $api.offset(header);
+        // var navH = $api.offset(nav);
+
+        var menus = $api.domAll('.menu');
+        var uu = JSON.stringify(menus);
+        // console.log(uu);
+        var frames = [];
+        for (var i = 0; i < menus.length; i++) {
+            frames.push({
+                name: 'tab' + i,
+                url: './tab' + i + '.html',
+                // bgColor: '#000'
+            })
+        }
+        var winH = api.winHeight
+        var result = JSON.stringify(winH);
+        // console.log(result);
+        api.openFrameGroup({
+            name: 'menuFrameGroup',
+            scrollEnabled: true,
+            fixedOn: 'frame0',
+            rect: {
+                x: 0,
+                y: 128,
+                w: 'auto',
+                h: winH - 190
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+          if( ret ){
+              //  alert( JSON.stringify( ret ) );
+              for(let i=0;i<menus.length;i++){
+                if(ret.index === i) {
+                  $api.addCls(menus[i], 'active');
+                  // console.log(i)
+                } else {
+                  $api.removeCls(menus[i], 'active');
+
+                }
+              }
+          }
+        });
+
+    }
+
+    function toVideo() {
+        api.openWin({
+            name: 'video',
+            url: '../widget/index.html',
+            //  pageParam: {
+            //      name: 'test'
+            //  }
+        });
+
+    }
+
+    function toVideoTask() {
+        api.openWin({
+            name: 'video_task',
+            url: './video_task.html',
+            //  pageParam: {
+            //      name: 'test'
+            //  }
+        });
+
+    }
+
+</script>

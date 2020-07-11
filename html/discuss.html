@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>讨论社区发布</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            background-color: #ff7247;
+            color: #ffffff;
+            /*position: fixed;
+            margin-top: 0px;*/
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .question {
+            /*margin: 0 auto;*/
+            display: flex;
+            justify-content: flex-start;
+            line-height: 30px;
+            color: #959595;
+            font-size: 16px;
+            /*margin-top: 30px;*/
+            /*margin-left: 30px;*/
+            width: 84%;
+        }
+
+        .question>input {
+            border-radius: 2px;
+            border: 1px solid #959595;
+            height: 30px;
+            width: 220px;
+            color: #959595;
+        }
+
+        input::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #ccc;
+        }
+
+        .question_container {
+            width: 100%;
+            display: flex;
+            /*justify-content: flex-start;*/
+            flex-direction: column;
+            line-height: 30px;
+            color: #959595;
+            font-size: 16px;
+            margin-top: 10px;
+            /*margin-left: 30px;*/
+            /*margin: 30px auto;*/
+            /*justify-content:flex-end;*/
+            align-items: center;
+        }
+
+        .question_container>div {
+            width: 84%;
+        }
+
+        .question_container>textarea {
+            border-radius: 5px;
+            border: 1px solid #959595;
+            height: 230px;
+            width: 80%;
+            padding: 10px 10px;
+            color: #959595;
+            margin-top: 10px;
+            line-height: 32px;
+        }
+
+        textarea::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #ccc;
+        }
+
+        .img_container {
+            background-color: #f2f2f2;
+            width: 280px;
+            height: 150px;
+            margin: 30px auto;
+            border-radius: 5px;
+        }
+
+        .img_btn {
+            width: 280px;
+            height: 50px;
+            /*margin: 10px auto;*/
+            padding: 10px auto;
+            /*background-color: #ff7247;*/
+            border: 1px solid #ff7247;
+            color: #ff7247;
+        }
+
+        .btn {
+            margin: 0px auto;
+            width: 280px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .upload {
+            /*margin: 30px auto;*/
+            /*padding: 10%;*/
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10%;
+            padding-bottom: 10%;
+        }
+
+        .upload_btn {
+            width: 80%;
+            height: 50px;
+            /*margin: 0px auto;*/
+            justify-content: center;
+            /*padding: 10px auto;*/
+            background-color: #ff7247;
+            /*border:1px solid #ff7247;*/
+            color: #fff;
+            /*margin-bottom: 50px;*/
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <p>发表观点</p>
+    </div>
+    <div id="app">
+        <div class="question_container">
+            <div>正文标题&nbsp;&nbsp;</div>
+            <textarea type="text" placeholder="请输入正文标题" style="height:50px" v-model="headline"></textarea>
+        </div>
+        <div class="question_container">
+            <div>正文内容&nbsp;&nbsp;</div>
+            <textarea type="text" placeholder="说点什么吧..." v-model="content"></textarea>
+        </div>
+        <div class="upload">
+            <input type="button" class="upload_btn" value="提交" @click="upload" />
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    const app = new Vue({
+        el: '#app',
+        data: {
+            headline: '',
+            content: ''
+        },
+        methods: {
+            close() {
+                api.closeWin({
+                    name: 'discuss'
+                });
+            },
+            upload() {
+                var password = api.pageParam.password;
+                var username = api.pageParam.username;
+                // const avatar = localStorage.getItem("avatar64")
+                // console.log(username);
+                if (this.headline === '') {
+                    alert('请输入正文标题')
+                } else if (this.content === '') {
+                    alert('请输入正文内容')
+                } else {
+                    const query = Bmob.Query('discuss');
+                    query.set("headline", this.headline)
+                    query.set("content", this.content)
+                    query.set("username", username)
+                    query.set("password", password)
+                    // query.set("avatar", avatar)
+                    query.save().then(res => {
+                        // console.log(res)
+                        alert('上传成功！')
+                            // api.closeWin({
+                            //     name: 'discuss'
+                            // });
+                        this.close()
+                        api.sendEvent({
+                            name: 'close',
+                            extra: {
+                                state: 'no'
+                            }
+                        });
+                    }).catch(err => {
+                        // console.log(err)
+                        alert('上传失败！')
+                    })
+                }
+            }
+        },
+        mounted() {
+            // console.log(ava);
+        }
+    })
+</script>

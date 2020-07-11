@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>tab2</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            background-color: #ff7247;
+            color: #ffffff;
+            position: fixed;
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .head_img {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            background: url(../image/bg-img/3.jpg);
+            background-size: 100% 160px;
+            background-repeat: no-repeat;
+            /*position: fixed;*/
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            border-bottom: 2px solid #f2f2f2;
+            width: 100%;
+            height: 40px;
+            margin-bottom: 10px;
+            /*position: fixed;*/
+        }
+
+        .nav_left {
+            display: flex;
+            justify-content: flex-start;
+            width: 200px;
+            height: 40px;
+        }
+
+        .icon {
+            /*position: absolute;*/
+            margin-top: 10px;
+            margin-left: 20px;
+            width: 30px;
+            height: 30px;
+            background: url(../image/u57.png);
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+        }
+
+        .title,
+        .nav_right {
+            line-height: 40px;
+        }
+
+        .nav_right {
+            text-align: right;
+            width: 100px;
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        .twobox_container {
+            width: 100%;
+            display: flex;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .box {
+            flex: 1;
+            /*border: 1px solid pink;*/
+            display: flex;
+            flex-direction: column;
+            /*background-color: pink;*/
+            /*display: flex;*/
+            /*width: 50%;*/
+            /*flex-direction: column;*/
+        }
+
+        .box_top {
+            height: 110px;
+            /*flex-grow: 5;*/
+            /*border: 1px solid green;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box_bottom {
+            /*padding-left: 10%;
+      padding-bottom: 20px;
+      width: 80%;*/
+            /*flex-grow: 2;*/
+            /*border: 1px solid blue;*/
+            height: 33px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .box_bottom>div {
+            margin-left: 15px;
+        }
+
+        .container {
+            display: flex;
+            border-bottom: 1px solid #f2f2f2;
+            padding-bottom: 10px;
+            height: 150px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .con_left {
+            /*flex-grow: 2;*/
+            width: 170px;
+            /*background-color: pink;*/
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .con_right {
+            /*flex-grow: 6;*/
+            width: 90%;
+            /*background-color: red;*/
+            display: flex;
+            flex-direction: column;
+            height: 130px;
+        }
+
+        .con_right_top {
+            /*background-color: blue;*/
+            flex-grow: 4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .con_right_top>div:nth-child(1) {
+            flex-grow: 2;
+            /*background-color: pink;*/
+            display: flex;
+            align-items: flex-end;
+            /*width: 470px;*/
+            /*padding: 20px;*/
+        }
+
+        .con_right_top>div:nth-child(1)>div {
+            /*padding-left: 10px;*/
+            font-weight: bold;
+            font-size: 18px;
+            width: 100%;
+            /*控制超出行数*/
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .con_right_top>div:nth-child(2) {
+            flex-grow: 3;
+            /*background-color: purple;*/
+            display: flex;
+            align-items: center;
+        }
+
+        .con_right_top>div:nth-child(2)>div {
+            /*width: 90%;*/
+            /*padding-left: 10px;*/
+            /*width: 470px;*/
+            color: #999;
+            /*控制超出行数*/
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .con_right_bottom {
+            /*background-color: green;*/
+            flex-grow: 1;
+        }
+
+        .con_right_bottom>div {
+            float: right;
+            width: 60px;
+            height: 25px;
+            line-height: 25px;
+            /*background-color: #821cac;*/
+            background: #6e1892;
+            color: #fff;
+            text-align: center;
+            margin-right: 0px;
+            border-radius: 10px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+  <div class="header">
+      <p>我发布的直播学习帖</p>
+  </div>
+  <div style="width:100%;height:88px"></div>
+    <div id="app" v-cloak>
+        <!-- <div class="head_img"></div>
+        <div class="nav">
+            <div class="nav_left">
+                <div class="icon"></div>
+                <div class="title">分享学习</div>
+            </div>
+        </div> -->
+        <div class="container" v-for="(item,index) in dataList" :key="index" @click="toTaskDetail(item, index)">
+            <div class="con_right">
+                <div class="con_right_top">
+                    <div>
+                        <div>{{item.headline}}</div>
+                    </div>
+                    <div>
+                        <div>发起人 {{item.username}} | 直播时间 {{item.date}} {{item.time}}</div>
+                    </div>
+                </div>
+                <div class="con_right_bottom">
+                    <div>{{item.price}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      api.addEventListener({
+          name: 'to_my_video'
+      }, function(ret, err) {
+          if (ret.value.state == 'success jump') {
+              window.location.reload(); //刷新页面
+          }
+      });
+        api.addEventListener({
+            name: 'close_win'
+        }, function(ret, err){
+          if (ret.value.state == 'closed') {
+              window.location.reload()
+          }
+        });
+
+    }
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    // const query = Bmob.Query('goodVideo');
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              dataList: []
+            }
+        },
+        mounted() {
+            this.getData()
+        },
+        methods: {
+          toTaskDetail(item, index) {
+              //注意此处传参item
+              // console.log('ok')
+              const task_id = item.objectId
+              api.openWin({
+                  name: 'video_task_detail',
+                  url: './video_task_detail.html',
+                  pageParam: {
+                      task_id: task_id
+                  }
+              });
+
+          },
+            getData() {
+              // console.log('uuu')
+                const query = Bmob.Query('video_task');
+                query.get('').then(res => {
+                    // console.log(res.results.length)
+                    // this.dataList = res.results
+                    let username = localStorage.getItem('com_username')
+                    let getmine = []
+                    for (let i = 0; i < res.results.length; i++) {
+                        if (username === res.results[i].username) {
+                            getmine.push(res.results[i])
+                        }
+                    }
+                    this.dataList = getmine
+                }).catch(err => {
+                    // console.log(err)
+                })
+            },
+            // toVideo(index) {
+            //     const id = app.list[index].id
+            //     console.log(id)
+            //     api.openWin({
+            //         name: 'video',
+            //         url: './video.html',
+            //         pageParam: {
+            //             id: id
+            //         }
+            //     });
+            // }
+        }
+    })
+</script>

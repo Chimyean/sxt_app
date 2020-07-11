@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>讨论社区发布</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /*overflow: hidden; */
+        }
+
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            background-color: #ff7247;
+            color: #ffffff;
+            position: fixed;
+            /*position: fixed;
+            margin-top: 0px;*/
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .question {
+            /*margin: 0 auto;*/
+            display: flex;
+            justify-content: flex-start;
+            line-height: 30px;
+            color: #959595;
+            font-size: 16px;
+            /*margin-top: 30px;*/
+            /*margin-left: 30px;*/
+            width: 84%;
+        }
+
+        .question>input {
+            border-radius: 2px;
+            border: 1px solid #959595;
+            height: 30px;
+            width: 220px;
+            color: #959595;
+        }
+
+        input::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #ccc;
+        }
+
+        .question_container {
+            width: 100%;
+            display: flex;
+            /*justify-content: flex-start;*/
+            flex-direction: column;
+            line-height: 30px;
+            color: #959595;
+            font-size: 16px;
+            margin-top: 10px;
+            /*margin-left: 30px;*/
+            /*margin: 30px auto;*/
+            /*justify-content:flex-end;*/
+            align-items: center;
+        }
+
+        .question_container>div {
+            width: 84%;
+        }
+
+        .question_container>textarea {
+            border-radius: 5px;
+            border: 1px solid #959595;
+            height: 230px;
+            width: 80%;
+            padding: 10px 10px;
+            color: #959595;
+            margin-top: 10px;
+            line-height: 32px;
+        }
+
+        textarea::-webkit-input-placeholder,
+        input::-webkit-input-placeholder,
+        select::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #ccc;
+        }
+
+        .question_container>input {
+            border-radius: 5px;
+            border: 1px solid #959595;
+            height: 20px;
+            width: 80%;
+            padding: 10px 10px;
+            color: #959595;
+            margin-top: 10px;
+            line-height: 32px;
+        }
+
+        .img_container {
+            background-color: #f2f2f2;
+            width: 280px;
+            height: 150px;
+            margin: 30px auto;
+            border-radius: 5px;
+        }
+
+        .img_btn {
+            width: 280px;
+            height: 50px;
+            /*margin: 10px auto;*/
+            padding: 10px auto;
+            /*background-color: #ff7247;*/
+            border: 1px solid #ff7247;
+            color: #ff7247;
+        }
+
+        .btn {
+            margin: 0px auto;
+            width: 280px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .upload {
+            /*margin: 30px auto;*/
+            /*padding: 10%;*/
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10%;
+            padding-bottom: 10%;
+        }
+
+        .upload_btn {
+            width: 80%;
+            height: 50px;
+            /*margin: 0px auto;*/
+            justify-content: center;
+            /*padding: 10px auto;*/
+            background-color: #ff7247;
+            /*border:1px solid #ff7247;*/
+            color: #fff;
+            /*margin-bottom: 50px;*/
+            border-radius: 5px;
+        }
+
+        .question_container>select {
+            background: none;
+            border-radius: 5px;
+            border: 1px solid #959595;
+            height: 50px;
+            width: 85%;
+            padding: 10px 10px;
+            color: #959595;
+            margin-top: 10px;
+            line-height: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <p>直播学习帖发布</p>
+    </div>
+    <div style="width: 100%; height: 88px;"></div>
+    <div id="app">
+        <div class="question_container">
+            <div>直播标题&nbsp;&nbsp;</div>
+            <textarea type="text" placeholder="请输入直播标题" style="height:50px" v-model="que_headline"></textarea>
+        </div>
+        <div class="question_container">
+            <div>直播内容&nbsp;&nbsp;</div>
+            <textarea type="text" placeholder="说点什么吧..." v-model="que_content"></textarea>
+        </div>
+        <div class="question_container">
+            <div>直播类型&nbsp;&nbsp;</div>
+            <select name="video_type" v-model="type">
+              <option value="直播监督学习">直播监督学习</option>
+              <option value="直播经验分享">直播经验分享</option>
+            </select>
+        </div>
+        <div class="question_container">
+            <div>直播打赏金额&nbsp;&nbsp;</div>
+            <input type="text" placeholder="请输入期望赏金(仅限直播经验分享)" v-model="que_price" :disabled="choose" />
+        </div>
+        <div class="question_container">
+            <div>直播日期&nbsp;&nbsp;</div>
+            <input type="date" placeholder="请输入期望日期" v-model="que_date" />
+        </div>
+        <div class="question_container">
+            <div>直播时间&nbsp;&nbsp;</div>
+            <input type="time" placeholder="请输入期望时间" v-model="que_time" />
+        </div>
+        <div class="upload">
+            <input type="button" class="upload_btn" value="提交" @click="submit" />
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                choose: false,
+
+                username: '',
+                que_headline: '',
+                que_content: '',
+                que_price: '',
+                que_date: '',
+                que_time: '',
+                type: ''
+
+            }
+
+        },
+        watch: {
+            type() {
+                if (this.type === '直播监督学习') {
+                    this.choose = true
+                } else {
+                    this.choose = false
+                }
+            }
+        },
+        methods: {
+            close_win() {
+                api.closeWin({
+                    name: 'video_task'
+                });
+
+            },
+            submit() {
+                // const bgcolor = ''
+                const queryColor = Bmob.Query('task');
+                queryColor.get('').then(res => {
+                    // console.log(res)
+                    // this.itemList = res.results
+                    // let length = res.results.length
+                    // if (length%4 === 0) {
+                    //   this.dataList.bgcolor = 'change_blue'
+                    // }
+                    // if (length%4 === 1) {
+                    //   this.dataList.bgcolor = 'change_green'
+                    // }
+                    // if (length%4 === 2) {
+                    //   this.dataList.bgcolor = 'change_pink'
+                    // }
+                    // if (length%4 === 3) {
+                    //   this.dataList.bgcolor = 'change_orange'
+                    // }
+                    // console.log(this.dataList.bgcolor)
+                    const password = localStorage.getItem("password")
+                    const username = localStorage.getItem("com_username")
+                        // if (this.que_price === '') {
+                        //   this.que_price = 'free'
+                        // }
+                    if (this.que_headline === '') {
+                        alert('请输入直播标题')
+                    }
+                    if (this.que_content === '') {
+                        alert('请输入直播内容')
+                    }
+                    if (this.type === '') {
+                        alert('请选择直播类型')
+                    }
+                    if (this.que_price === '') {
+                        this.que_price = 'free'
+                    }
+                    if (this.que_date === '') {
+                        alert('请选择直播日期')
+                    }
+                    if (this.que_time === '') {
+                        alert('请选择直播时间')
+                    }
+                    const query = Bmob.Query('video_task');
+                    query.set("username", username)
+                    query.set("password", password)
+                    query.set("type", this.type)
+                    query.set("headline", this.que_headline)
+                    query.set("content", this.que_content)
+                    query.set("price", this.que_price)
+                    query.set("date", this.que_date)
+                    query.set("time", this.que_time)
+                    query.save().then(res => {
+                        alert('发布成功！')
+                        this.headline = ''
+                        this.headline = ''
+                        this.price = ''
+                        this.date = ''
+                        this.time = ''
+                        this.close_win()
+                        api.sendEvent({
+                            name: 'close_win',
+                            extra: {
+                                state: 'closed'
+                            }
+                        });
+                    }).catch(err => {
+                        alert('发布失败！')
+                    })
+
+                }).catch(err => {
+                    // console.log(err)
+                })
+
+            }
+
+        },
+        mounted() {
+
+        }
+    })
+</script>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <style>
+        body {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+        .login-header-btn{
+            display: block;
+            background-size: 30px;
+            padding: 20px;
+        }
+        .detail-header {
+            border-bottom: 1px solid #fe6533;
+            background-color: #ff7245;
+        }
+        .back {
+            background-size: 40px !important;
+            background-image: url("../image/weather_back@2x.png");
+            background-position: right !important;
+        }
+        .detail-header a {
+            padding: 25px;
+        }
+        .title {
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 50px;
+            font-size: 18px;
+            margin-top:18px;
+        }
+        .content{
+            -webkit-box-flex:1;
+        }
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+        .user {
+            background-image: url("image/login-index/nickname.png");
+        }
+
+        .password {
+            background-image: url("image/login-index/password.png");
+        }
+
+        .input-wrap {
+            padding: 10px 0;
+            display: -webkit-box;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+
+        .form {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            border-radius: 8px;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            background-color: rgba(255, 255, 255, 0);
+            outline: none;
+            height: 32px;
+            margin-top:0px;
+        }
+
+        .btn {
+            display: block;
+            color: #fe6533;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+            border:1px solid #fe6533;
+            margin-top:100px;
+        }
+        input{
+            padding-left: 10px;
+            font-size: 18px;
+        }
+        .other-login-wrap,.other-login{
+            margin-top: 20px;
+        }
+        .other-login-lable{
+            padding:10px 20px;
+        }
+        .other-login{
+            text-align: center;
+        }
+        .other-login div{
+            display: inline-block;
+            position: relative;
+            width: 49.4%;
+            height:60px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center center;
+            background-size: 60px;
+        }
+        .other-login div span{
+            margin-top:70px ;
+        }
+        footer{
+            position:relative;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        .fast-reg{
+            line-height: 20px;
+            position: absolute;
+            border-radius: 10px;
+            border: 1px solid #E7E7E7;
+            bottom:14px;
+            right: 20px;
+            width: 70px;
+            color:#fe6533;
+        }
+        .textnumber{
+          color:#fe6533;
+        }
+    </style>
+</head>
+<body>
+  <header>
+      <div class="header detail-header">
+          <div class="back login-header-btn" tapmode="" onclick="closeWin()"></div>
+
+          <div class="title" id="title">登录</div>
+          <div class="login-header-btn"></div>
+      </div>
+  </header>
+<div class="content">
+    <div class="form">
+        <div class="input-wrap">
+            <i class="user"></i>
+            <input type="text" placeholder="昵称"  id="username" value="">
+        </div>
+        <div class="input-wrap">
+            <i class="password"></i>
+            <input type="password" placeholder="密码"  id="password" value="">
+        </div>
+    </div>
+    <div class="btn" id="login" tapmode="" onclick="login()">登录开启你的赏学堂之旅</div>
+    <div class="other-login-wrap">
+        <div class="other-login-lable">
+
+        </div>
+        <div class="other-login">
+            <div class="sina">
+                <span class="sina-label"></span>
+            </div>
+            <div class="qq">
+                <span class="qq-label"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="textnumber">还没有注册账号？>>></div>
+    <div class="fast-reg" tapmode="" onclick="toRegister()">立即注册</div>
+</footer>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/zepto.js"></script>
+<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+　　  $('body').height($('body')[0].clientHeight);
+    });                                    //弹出手机键盘时不改变页面布局
+    apiready = function () {
+       exit_app()
+    };
+    function exit_app() {
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            if (ret) {
+                // alert(JSON.stringify(ret));
+                localStorage.removeItem('com_username')
+                localStorage.removeItem('password')
+                api.closeWidget({
+                    id: 'A6036924957494',
+                    retData: {
+                        name: 'closeWidget'
+                    },
+                    animation: {
+                        type: 'flip',
+                        subType: 'from_bottom',
+                        duration: 500
+                    }
+                });
+
+            } else {
+                // alert(JSON.stringify(err));
+                alert('出错啦！')
+            }
+        });
+
+        // api.addEventListener({
+        //     name: 'keyback'
+        // }, function(ret, err) {
+        //     api.addEventListener({
+        //         name: 'keyback'
+        //     }, function(ret, err) {
+        //         api.closeWidget({
+        //             id: 'A6036924957494', //你的APPid
+        //             retData: {
+        //                 name: 'closeWidget'
+        //             },
+        //             animation: {
+        //                 type: 'flip',
+        //                 subType: 'from_bottom',
+        //                 duration: 500
+        //             },
+        //             silent: true
+        //         });
+        //     });
+        //     setTimeout(function() {
+        //         exit_app();
+        //     }, 3000);
+        // });
+    }
+    function login() {
+      var username = document.getElementById("username").value
+      var password = document.getElementById("password").value
+      // console.log(username)
+      // console.log(password)
+      if (username === '') {
+        alert('请输入用户名！')
+      } else if (password === '') {
+        alert('请输入密码！')
+      } else {
+      api.ajax({
+          url: 'http://121.199.23.141:8081/User/selectUserbyusername',
+          method: 'post',
+          dataType:"TEXT",
+          data: {
+              values: {
+                  username: username,
+                  password: password
+              },
+          }
+      },function(ret, err){
+          if (ret) {
+              // alert( JSON.stringify( ret ) );
+              alert('登陆成功！')
+              // 考虑评论者
+              localStorage.setItem("com_username", username);
+              localStorage.setItem("password", password);
+              api.openWin({
+                  name: 'index',
+                  url: 'index.html',
+                  pageParam: {
+                      username: username,
+                      password: password
+                  }
+              });
+
+          } else {
+            alert( '用户名或密码错误' );
+              // alert( JSON.stringify( err ) );
+          }
+      });
+    }
+    }
+    function toRegister() {
+      api.openWin({
+          name: 'register',
+          url: './win_register.html',
+      });
+
+    }
+</script>
+</body>
+</html>

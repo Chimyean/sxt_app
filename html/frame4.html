@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .container {
+            background: #ff7245;
+            width: 100%;
+            height: 180px;
+        }
+
+        .avatar_image {
+            width: 80px;
+            height: 80px;
+            background: #f2f2f2;
+            border-radius: 50%;
+            float: left;
+            margin-top: 70px;
+            margin-left: 30px;
+            /*background-image: url(../image/avatar.png);*/
+        }
+
+        .con_right {
+            float: left;
+            font-size: 16px;
+            color: #fff;
+            margin-top: 95px;
+            margin-left: 30px;
+        }
+
+        .about_container {
+            width: 100%;
+            height: 50px;
+            border-top: 1px solid #f2f2f2;
+            border-bottom: 1px solid #f2f2f2;
+            display: flex;
+        }
+
+        .about_left {
+            line-height: 50px;
+            font-size: 16px;
+            color: #373739;
+            /*padding-left: 10px;*/
+            /*justify-content: space-between;*/
+            /*float: left;*/
+            /*background: blue;*/
+            width: 87%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .about_right {
+            line-height: 50px;
+            font-size: 20px;
+            color: #6d6d6f;
+            /*justify-content: space-between;*/
+            /*float: right;*/
+            /*padding-right: 20px;*/
+            text-align: center;
+            width: 10%;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="empty">我的</div> -->
+    <div id="app">
+        <div class="container">
+            <div class="con_left">
+                <img id="avatar_image" class="avatar_image" src="../image/avatar.png" />
+            </div>
+            <div class="con_right" id="username">点击此处登录</div>
+        </div>
+        <div class="about_container" onclick="to_my_video()">
+            <div class="wrap" style="width: 3%;height:50px;"></div>
+            <div class="about_left">
+                <img src="../image/iconfont/video.png" style="width: 20px; height: 20px; margin-right:10px; " /> 我发布的直播学习帖
+            </div>
+            <div class="about_right">></div>
+        </div>
+        <div class="about_container" onclick="to_my_task()">
+            <div class="wrap" style="width: 3%;height:50px;"></div>
+
+            <div class="about_left">
+                <img src="../image/iconfont/task.png" style="width: 20px; height: 20px; margin-right:10px; " /> 我发布的任务帖
+            </div>
+            <div class="about_right">></div>
+        </div>
+        <div class="about_container" onclick="to_my_discuss()">
+            <div class="wrap" style="width: 3%;height:50px;"></div>
+
+            <div class="about_left">
+                <img src="../image/iconfont/discuss.png" style="width: 20px; height: 20px; margin-right:10px; " /> 我发布的讨论帖
+            </div>
+            <div class="about_right">></div>
+        </div>
+        <div class="about_container" onclick="to_about()">
+            <div class="wrap" style="width: 3%;height:50px;"></div>
+
+            <div class="about_left">
+                <img src="../image/iconfont/aboutus.png" style="width: 20px; height: 20px; margin-right:10px; " /> 关于我们
+            </div>
+            <div class="about_right">></div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    var result = ''
+    var avatar64 = ''
+    apiready = function() {
+
+        var password = api.pageParam.password;
+        var username = api.pageParam.username;
+        // console.log(username);
+        if (username !== undefined) {
+            loadXMLDoc()
+            document.getElementById('username').innerHTML = '欢迎您！' + username
+        }
+    }
+
+    function to_my_video() {
+        api.openWin({
+            name: 'my_video',
+            url: './my_video.html',
+            // pageParam: {
+            //     name: 'test'
+            // }
+        });
+        api.sendEvent({
+            name: 'to_my_video',
+            extra: {
+                state: 'success jump'
+            }
+        });
+    }
+
+    function to_my_task() {
+        api.openWin({
+            name: 'my_task',
+            url: './my_task.html',
+            // pageParam: {
+            //     name: 'test'
+            // }
+        });
+        api.sendEvent({
+            name: 'to_my_task',
+            extra: {
+                state: 'success jump'
+            }
+        });
+    }
+
+    function to_my_discuss() {
+        api.openWin({
+            name: 'my_discuss',
+            url: './my_discuss.html',
+            // pageParam: {
+            //     name: 'test'
+            // }
+        });
+        api.sendEvent({
+            name: 'to_my_discuss',
+            extra: {
+                state: 'success jump'
+            }
+        });
+
+    }
+
+    function to_about() {
+        api.openWin({
+            name: 'about',
+            url: './about.html',
+            // pageParam: {
+            //     name: 'test'
+            // }
+        });
+
+    }
+
+    function toLogin() {
+        api.openWin({
+            name: 'login',
+            url: '../frm_login.html',
+
+        });
+    }
+
+    function loadXMLDoc() {
+        var password = api.pageParam.password;
+        var username = api.pageParam.username;
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp = new XMLHttpRequest();
+        // console.log(xmlhttp.status);
+        // console.log(username)
+        // console.log(password)
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                // console.log(xmlhttp.status);
+                // console.log(xmlhttp.getResponseHeader("Content-Length"));
+                var blob = xmlhttp.response;
+
+                var reader = new FileReader();
+
+                reader.readAsDataURL(blob);
+                reader.onload = function() {
+                    var b64 = this.result;
+                    // console.log(b64);
+                    document.getElementById('avatar_image').src = b64;
+                    localStorage.setItem("avatar64", b64)
+                        // const ava = sessionStorage.getItem("avatar64")
+                        // console.log(ava)
+                }
+            }
+        }
+        xmlhttp.open("GET", 'http://121.199.23.141:8081/User/selectphoto?username=' + username + "&password=" + password, true);
+        xmlhttp.responseType = "blob";
+        xmlhttp.send();
+    }
+</script>

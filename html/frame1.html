@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>任务间</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 88px;
+            text-align: center;
+            display: flex;
+            /*background-color: #ff7247;*/
+            background: #ff7247;
+            color: #ffffff;
+            position: fixed;
+        }
+
+        .header>p {
+            color: #fff;
+            line-height: 108px;
+            font-size: 18px;
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            height: 150px;
+            border-bottom: 1px solid #f2f2f2;
+            /*height: 150px;*/
+        }
+
+        .con_left {
+            /*padding: 20px 20px;*/
+            width: 52%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pic {
+            height: 70%;
+            width: 80%;
+            border-radius: 5px;
+            background: #ff7247;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .change_blue>p,.change_green>p,.change_pink>p,.change_orange>p {
+            width: 70%;
+            height: 60px;
+            /*padding: 10px 0px 10px 0px;*/
+            line-height: 60px;
+            /*text-align: center;*/
+            /*控制超出行数*/
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .con_right {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .con_right>div:nth-child(1) {
+            flex: 1;
+            /*background: red;*/
+            display: flex;
+            align-items: flex-end;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .con_right>div:nth-child(1)>p {
+            width: 95%;
+            /*控制超出行数*/
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .con_right>div:nth-child(2) {
+            flex: 1;
+            /*background: blue;*/
+            display: flex;
+            align-items: center;
+        }
+
+        .con_right>div:nth-child(2)>p {
+            width: 95%;
+            /*控制超出行数*/
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-size: 12px;
+            color: #999;
+            line-height: 20px;
+        }
+
+        .con_right>div:nth-child(3) {
+            flex: 1;
+            /*background: green;*/
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            width: 90%;
+        }
+
+        .con_right>div:nth-child(3)>div {
+            width: 35%;
+            height: 28px;
+            background: #ff7247;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 100%;
+            text-align: center;
+            line-height: 28px;
+        }
+
+        .change_blue {
+          background: #0497ca;
+          height: 70%;
+          width: 80%;
+          border-radius: 5px;
+          /*background: #ff7247;*/
+          text-align: center;
+          color: #fff;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+        .change_green {
+          background: #02ce99;
+          height: 70%;
+          width: 80%;
+          border-radius: 5px;
+          /*background: #ff7247;*/
+          text-align: center;
+          color: #fff;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+        .change_pink {
+          background: #ff349d;
+          height: 70%;
+          width: 80%;
+          border-radius: 5px;
+          /*background: #ff7247;*/
+          text-align: center;
+          color: #fff;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+        .change_orange {
+          background: #fb9701;
+          height: 70%;
+          width: 80%;
+          border-radius: 5px;
+          /*background: #ff7247;*/
+          text-align: center;
+          color: #fff;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+
+        [v-cloak] {
+          display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>任务间</p>
+    </div>
+    <div style="width:100%;height:88px"></div>
+    <div id="app" v-cloak>
+        <div class="container" v-for="(item, index) in itemList" :key="index" @click="toTask(item, index)">
+            <div class="con_left" >
+                <!-- <image src="../image/none.jpg" style="width:150px; height:100px; border-radius: 5px;"/> -->
+                <div id="bg" :class="item.color">
+                    <p>{{item.que_headline}}</p>
+                </div>
+            </div>
+            <div class="con_right">
+                <div>
+                    <p>{{item.que_headline}}</p>
+                </div>
+                <div>
+                    <p>{{item.que_content}}</p>
+                </div>
+                <div>
+                    <div>{{item.que_price}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+        api.addEventListener({
+            name: 'randomSwitchBtn'
+        }, function(ret, err) {
+            if (ret.value.state == 'ok') {
+                refresh();
+            }
+        });
+        //放的位置无限制，写在apiready最开始即可
+        function refresh() {
+          // console.log('ok')
+            window.location.reload(); //刷新页面
+        };
+    }
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    // const queryColor = Bmob.Query('task');
+    // queryColor.get('').then(res => {
+    //     // console.log(res)
+    //     this.itemList = res.results
+    // }).catch(err => {
+    //     console.log(err)
+    // })
+    // document.getElementById('bg').style = "height: 70%;width: 80%;border-radius: 5px;background: #ff7247;text-align: center;color: #fff;font-size: 16px;display: flex;align-items: center;justify-content: center;font-weight: bold;"
+    const app = new Vue({
+        el: '#app',
+        data() {
+            // headline: '',
+            // content: '',
+            // price: '',
+            return {
+                itemList: [],
+                blue: true,
+                green: true,
+                pink: true,
+                orange: true,
+                pic: 'change_pink'
+            }
+        },
+        methods: {
+            changeColor() {
+              // console.log(index)
+              // if (index%4===0) {
+              //   this.blue = true,
+              //   this.green = false,
+              //   this.pink = false,
+              //   this.orange = false
+              // } else if (index%4===1) {
+              //   this.blue = false,
+              //   this.green = true,
+              //   this.pink = false,
+              //   this.orange = false
+              // } else if (index%4===2) {
+              //   this.blue = false,
+              //   this.green = false,
+              //   this.pink = true,
+              //   this.orange = false
+              // } else {
+              //   this.blue = false,
+              //   this.green = false,
+              //   this.pink = false,
+              //   this.orange = true
+              // }
+            },
+            getItem() {
+                const query = Bmob.Query('task');
+                query.get('').then(res => {
+                    // console.log(res)
+                    this.itemList = res.results
+                }).catch(err => {
+                    // console.log(err)
+                })
+            },
+            toTask(item, index) {
+                //注意此处传参item
+                // console.log('ok')
+                const task_id = item.objectId
+                api.openWin({
+                    name: 'task_detail',
+                    url: './task_detail.html',
+                    pageParam: {
+                        task_id: task_id
+                    }
+                });
+
+            }
+        },
+        mounted() {
+            this.getItem()
+            // this.changeColor()
+        }
+    })
+
+    // function openWin_discuss() {
+    //     var password = api.pageParam.password;
+    //     var username = api.pageParam.username;
+    //     console.log(username);
+    //     api.openWin({
+    //         name: 'discuss',
+    //         url: './discuss.html',
+    //         allowEdit: true,
+    //         pageParam: {
+    //             username: username,
+    //             password: password
+    //         }
+    //     });
+    //
+    // }
+</script>

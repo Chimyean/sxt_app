@@ -1,0 +1,78 @@
+.header {
+  width: 100%;
+  height: 88px;
+  background-color: #fe7142;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  float: left;
+  /*position: fixed;*/
+}
+.search {
+  width: 70%;
+  height: 30px;
+  background-color: #fec9b8;
+  border-radius: 30px;
+  display: flex;
+}
+.video_btn {
+  width: 25px;
+  height: 25px;
+}
+.search, .video_btn {
+  margin-top: 20px;
+}
+.search_btn {
+  width: 20px;
+  height: 20px;
+  justify-content: flex-start;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.tabBar {
+  width: 100%;
+  height: 40px;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: space-around;;
+}
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+.txt {
+  margin-left: 5px;
+  color: #000;
+  font-family: "黑体";
+  font-weight: bold;
+}
+.txt.active {
+  color: red;
+}
+/*新的*/
+nav {
+  postion: relative;
+  width: 100%;
+  height: 40px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-flow: row;
+}
+nav .menu {
+  flex: 1;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  color: #000;
+  text-align: center;
+}
+nav .menu.active {
+  color: red;
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>tab1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+        .head_img {
+          position: relative;
+          width: 100%;
+          height: 160px;
+          background: url(../image/bg-img/2.jpg);
+          background-size: 100% 160px;
+          background-repeat: no-repeat;
+        }
+        .nav {
+          display: flex;
+          justify-content: space-between;
+          background-color: #fff;
+          border-bottom: 2px solid #f2f2f2;
+          width: 100%;
+          height: 40px;
+        }
+        .nav_left {
+          display: flex;
+          justify-content: flex-start;
+          width: 200px;
+          height: 40px;
+        }
+        .icon {
+          /*position: absolute;*/
+          margin-top: 10px;
+          margin-left: 20px;
+          width: 30px;
+          height: 30px;
+          background: url(../image/u88.png);
+          background-size: 20px 20px;
+          background-repeat: no-repeat;
+        }
+        .title, .nav_right {
+          line-height: 40px;
+        }
+        .nav_right {
+          text-align: right;
+          width: 100px;
+          height: 40px;
+          margin-right: 20px;
+        }
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          /*justify-content: flex-start;*/
+          width: 100%;
+          height: 300px;
+          background: #f2f2f2;
+          /*border-bottom: 1px solid #ffffff;*/
+          /*height: 150px;*/
+        }
+        .box {
+          width: 90%;
+          height: 240px;
+          border-radius: 5px;
+          /*border: 1px solid #999999;*/
+          /*background-color: grey;*/
+        }
+
+        .box_top {
+          width: 100%;
+          height: 140px;
+          border-radius: 5px 5px 0px 0px;
+          /*background: red;*/
+        }
+
+        .box_top>img {
+          width: 100%;
+          border-radius: 5px 5px 0px 0px;
+          height: 100%;
+          /*background: pink;*/
+        }
+
+        .box_bottom {
+          width: 100%;
+          height: 100px;
+          border-radius: 0px 0px 5px 5px;
+          display: flex;
+          flex-direction: column;
+          background: #fff;
+        }
+
+        .box_bottom_top {
+          width:100%;
+          height: 45px;
+          line-height: 45px;
+          display: flex;
+          /*justify-content: space-between;*/
+          /*background: orange;*/
+          float: left;
+          align-items: center;
+          position: relative;
+        }
+
+        .box_bottom_top>div:nth-child(1) {
+          padding-left: 15px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .box_bottom_top>div:nth-child(2) {
+          height: 25px;
+          width: 45px;
+          background: #2faa44;
+          border-radius: 8px;
+          line-height: 25px;
+          text-align: center;
+          margin-left: 82%;
+          position: absolute;
+          color: #fff;
+        }
+
+        .box_bottom_bottom {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 55px;
+          /*background: yellow;*/
+          line-height: 20px;
+          font-size: 13px;
+          color: #999;
+        }
+
+        .box_bottom_bottom>p {
+          width: 90%;
+          /*控制超出行数*/
+          text-overflow: -o-ellipsis-lastline;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        [v-cloak] {
+          display: none;
+        }
+
+    </style>
+</head>
+<body>
+  <div class="head_img"></div>
+  <div class="nav">
+    <div class="nav_left">
+      <div class="icon"></div>
+      <div class="title">即将播出</div>
+    </div>
+    <!-- <div class="nav_right">更多 ></div> -->
+  </div>
+  <div id="app" v-cloak>
+  <div class="container" v-for="(item,index) in dataList" :key="index" @click="toTaskDetail(item, index)">
+    <div class="box">
+      <div class="box_top">
+        <img src="../image/bg-img/4.jpg" />
+      </div>
+      <div class="box_bottom">
+        <div class="box_bottom_top">
+          <div>{{item.headline}}</div>
+          <div>{{item.price}}</div>
+        </div>
+        <div class="box_bottom_bottom"><p>播出时间：{{item.date}} {{item.time}} <br> {{item.content}}</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../js/Bmob-2.2.0.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      api.addEventListener({
+          name: 'close_win'
+      }, function(ret, err) {
+          if (ret.value.state == 'closed') {
+              window.location.reload()
+          }
+      });
+        api.addEventListener({
+            name: 'close_win'
+        }, function(ret, err){
+          if (ret.value.state == 'closed') {
+              window.location.reload()
+          }
+        });
+
+    }
+    Bmob.initialize("14ea16212168dc05", "cr1212")
+    // const query = Bmob.Query('goodVideo');
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              dataList: []
+            }
+        },
+        mounted() {
+            this.getData()
+        },
+        methods: {
+          toTaskDetail(item, index) {
+              //注意此处传参item
+              // console.log('ok')
+              const task_id = item.objectId
+              api.openWin({
+                  name: 'video_task_detail',
+                  url: './video_task_detail.html',
+                  pageParam: {
+                      task_id: task_id
+                  }
+              });
+
+          },
+            getData() {
+              // console.log('uuu')
+                const query = Bmob.Query('video_task');
+                query.get('').then(res => {
+                    // 判断是否即将开播
+                    let now = Date.now()
+                    let getall = []
+                    for(let i=0;i<res.results.length;i++){
+                      let str = res.results[i].date + ' ' + res.results[i].time
+                      let start = Date.parse(str)
+                      let num = start - now
+                      if(num > 0 && num < 86400000){
+                        getall.push(res.results[i])
+                      }
+                    }
+                    this.dataList = getall
+                }).catch(err => {
+                    // console.log(err)
+                })
+            },
+            // toVideo(index) {
+            //     const id = app.list[index].id
+            //     console.log(id)
+            //     api.openWin({
+            //         name: 'video',
+            //         url: './video.html',
+            //         pageParam: {
+            //             id: id
+            //         }
+            //     });
+            // }
+        }
+    })
+</script>
